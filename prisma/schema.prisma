@@ -1,0 +1,39 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  address    String   @id
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  @@index([address])
+}
+
+model Status {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model Submission {
+  address            String    @id
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @default(now())
+  discord_id         String
+  community_name     String
+  discord_server_url String
+  twitter_url        String
+  service            String
+  status_id          Int       @default(1)
+  reject_reason      String?   @default("")
+  bot_link           String?   @default("")
+  resolved_at        DateTime?
+
+  @@index([address, status_id])
+}
