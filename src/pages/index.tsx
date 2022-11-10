@@ -202,7 +202,7 @@ const Home: NextPage = () => {
 																				},
 																			pattern:
 																				{
-																					value: /^https?:\/\/(www.|m.|mobile.)?twitter\.com\/(?:#!\/)?\w+\/status?\/\d+/i,
+																					value: /^https?:\/\/(www.|m.|mobile.)?twitter\.com\/(?:#!\/)?\w+\/status?\/\d+$/i,
 																					message:
 																						"Invalid URL Provided!",
 																				},
