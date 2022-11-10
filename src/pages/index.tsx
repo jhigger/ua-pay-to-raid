@@ -43,17 +43,17 @@ const Home: NextPage = () => {
 		setConfirmed(false);
 		const address = publicKey?.toBase58();
 
-		const hasDiscount = await axios
-			.get(
-				`https://api-mainnet.magiceden.dev/v2/wallets/${address}/tokens?listStatus=unlisted`
-			)
-			.then((res) => {
-				const collections = ["utility_ape", "utility_ape_gen_2"];
-				const arr: [] = res.data;
-				return arr.some(({ collection }: { collection: string }) => {
-					return collections.includes(collection);
-				});
+		const hasDiscount = await axios({
+			method: "get",
+			url: `https://api-mainnet.magiceden.dev/v2/wallets/${address}/tokens?listStatus=unlisted`,
+			withCredentials: false,
+		}).then((res) => {
+			const collections = ["utility_ape", "utility_ape_gen_2"];
+			const arr: [] = res.data;
+			return arr.some(({ collection }: { collection: string }) => {
+				return collections.includes(collection);
 			});
+		});
 		setIsHolder(hasDiscount);
 
 		const payload = {
