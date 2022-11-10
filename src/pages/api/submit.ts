@@ -7,6 +7,7 @@ import {
 	SystemProgram,
 	Transaction,
 } from "@solana/web3.js";
+import axios from "axios";
 import BigNumber from "bignumber.js";
 import { type NextApiRequest, type NextApiResponse } from "next";
 import { shopAddress } from "../../lib/address";
@@ -16,14 +17,23 @@ const submit = async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
 		if (req.method === "POST") {
 			// Process a POST request
-			const {
-				reference,
-				address,
-				hasDiscount,
-				tweetUrl,
-				tweetId,
-				saveToDb,
-			} = req.body;
+			const { reference, address, tweetUrl, tweetId, saveToDb } =
+				req.body;
+
+			const hasDiscount = await axios
+				.get(
+					`https://api-mainnet.magiceden.dev/v2/wallets/${address}/tokens?listStatus=unlisted`
+				)
+				.then((res) => {
+					const collections = ["utility_ape", "utility_ape_gen_2"];
+					const arr: [] = res.data;
+					return arr.some(
+						({ collection }: { collection: string }) => {
+							return collections.includes(collection);
+						}
+					);
+				});
+
 			const payment = hasDiscount ? 3 : 4;
 
 			if (saveToDb) {

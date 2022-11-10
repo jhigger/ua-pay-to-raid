@@ -17,7 +17,6 @@ const Home: NextPage = () => {
 	const [tweetUrl, setTweetUrl] = useState("");
 	const [tweetId, setTweetId] = useState("");
 	const [confirmed, setConfirmed] = useState(false);
-	const [isHolder, setIsHolder] = useState(false);
 	const [transaction, setTransaction] = useState<Transaction | null>(null);
 
 	const { connection } = useConnection();
@@ -43,25 +42,11 @@ const Home: NextPage = () => {
 		setConfirmed(false);
 		const address = publicKey?.toBase58();
 
-		const hasDiscount = await axios({
-			method: "get",
-			url: `https://api-mainnet.magiceden.dev/v2/wallets/${address}/tokens?listStatus=unlisted`,
-			withCredentials: false,
-		}).then((res) => {
-			const collections = ["utility_ape", "utility_ape_gen_2"];
-			const arr: [] = res.data;
-			return arr.some(({ collection }: { collection: string }) => {
-				return collections.includes(collection);
-			});
-		});
-		setIsHolder(hasDiscount);
-
 		const payload = {
 			reference,
 			address,
 			tweetUrl,
 			tweetId,
-			hasDiscount,
 			saveToDb: false,
 		};
 
@@ -89,7 +74,6 @@ const Home: NextPage = () => {
 				address: publicKey.toBase58(),
 				tweetUrl,
 				tweetId,
-				isHolder,
 				saveToDb: true,
 			};
 
@@ -120,7 +104,6 @@ const Home: NextPage = () => {
 		reference,
 		tweetUrl,
 		tweetId,
-		isHolder,
 	]);
 
 	// Check every 0.5s if the transaction is completed
