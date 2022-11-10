@@ -20,7 +20,7 @@ const submit = async (req: NextApiRequest, res: NextApiResponse) => {
 			const { reference, address, tweetUrl, tweetId, saveToDb } =
 				req.body;
 
-			const hasDiscount = await axios
+			const isHolder = await axios
 				.get(
 					`https://api-mainnet.magiceden.dev/v2/wallets/${address}/tokens?listStatus=unlisted`
 				)
@@ -34,7 +34,7 @@ const submit = async (req: NextApiRequest, res: NextApiResponse) => {
 					);
 				});
 
-			const payment = hasDiscount ? 3 : 4;
+			const payment = isHolder ? 3 : 4;
 
 			if (saveToDb) {
 				await prisma.raid.create({
