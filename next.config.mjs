@@ -7,11 +7,19 @@
 
 /** @type {import("next").NextConfig} */
 const config = {
-  reactStrictMode: true,
-  swcMinify: true,
-  i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
-  },
+	reactStrictMode: true,
+	swcMinify: true,
+	i18n: {
+		locales: ["en"],
+		defaultLocale: "en",
+	},
+	async rewrites() {
+		return [
+			{
+				source: "/api/:path*",
+				destination: "https://api-mainnet.magiceden.dev/v2/:path*",
+			},
+		];
+	},
 };
 export default config;
