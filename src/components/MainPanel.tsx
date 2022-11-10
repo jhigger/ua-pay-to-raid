@@ -154,62 +154,73 @@ const MainPanel = () => {
 								<div className="mt-4">
 									<WalletMultiButton />
 								</div>
-								{wallet && connected && !isValidated ? (
-									<form
-										className="flex w-full flex-col gap-4"
-										onSubmit={handleSubmit(onSubmit)}
-									>
-										<div>
-											<div className="mt-8 flex">
-												<span className="inline-flex items-center rounded-l-md border-t border-l border-b border-gray-300 bg-white px-3 text-sm text-gray-500 shadow-sm">
-													<FaTwitter />
-												</span>
-												<input
-													type="text"
-													className="w-full flex-1 appearance-none rounded-r-lg border border-gray-300 bg-white py-2 px-4 text-sm text-gray-700 placeholder-gray-400 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-600"
-													placeholder="e.g. https://twitter.com/utilityapeNFT/status/1588789205530193921"
-													{...register("url", {
-														required: {
-															value: true,
-															message:
-																"Twitter Post URL Required!",
-														},
-														pattern: {
-															value: /^https?:\/\/(www.|m.|mobile.)?twitter\.com\/(?:#!\/)?\w+\/status?\/\d+$/i,
-															message:
-																"Invalid URL Provided!",
-														},
-													})}
-												/>
-											</div>
-											{errors.url && (
-												<div className="my-2 text-center text-xs text-red-500">
-													{errors.url.message}
-												</div>
-											)}
-										</div>
-										<button
-											type="submit"
-											className="gradient focus:shadow-outline mx-auto w-full transform rounded-md py-2 px-4 font-bold text-white shadow transition duration-75 ease-in-out hover:bg-white hover:text-black active:scale-95 lg:mx-0"
-										>
-											Validate
-										</button>
-									</form>
-								) : (
+								{wallet && connected && (
 									<>
-										<p className="py-4 text-center text-sm font-bold leading-5 text-green-400">
-											Validated
-										</p>
-										{!processingPayment && (
-											<button
-												onClick={() => {
-													setIsValidated(false);
-												}}
-												type="button"
-												className="gradient focus:shadow-outline mx-auto w-full transform rounded-md py-2 px-4 font-bold text-white shadow transition duration-75 ease-in-out hover:bg-white hover:text-black active:scale-95 lg:mx-0"
+										{!isValidated ? (
+											<form
+												className="flex w-full flex-col gap-4"
+												onSubmit={handleSubmit(
+													onSubmit
+												)}
 											>
-												Change Tweet
-											</button>
+												<div>
+													<div className="mt-8 flex">
+														<span className="inline-flex items-center rounded-l-md border-t border-l border-b border-gray-300 bg-white px-3 text-sm text-gray-500 shadow-sm">
+															<FaTwitter />
+														</span>
+														<input
+															type="text"
+															className="w-full flex-1 appearance-none rounded-r-lg border border-gray-300 bg-white py-2 px-4 text-sm text-gray-700 placeholder-gray-400 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-600"
+															placeholder="e.g. https://twitter.com/utilityapeNFT/status/1588789205530193921"
+															{...register(
+																"url",
+																{
+																	required: {
+																		value: true,
+																		message:
+																			"Twitter Post URL Required!",
+																	},
+																	pattern: {
+																		value: /^https?:\/\/(www.|m.|mobile.)?twitter\.com\/(?:#!\/)?\w+\/status?\/\d+$/i,
+																		message:
+																			"Invalid URL Provided!",
+																	},
+																}
+															)}
+														/>
+													</div>
+													{errors.url && (
+														<div className="my-2 text-center text-xs text-red-500">
+															{errors.url.message}
+														</div>
+													)}
+												</div>
+												<button
+													type="submit"
+													className="gradient focus:shadow-outline mx-auto w-full transform rounded-md py-2 px-4 font-bold text-white shadow transition duration-75 ease-in-out hover:bg-white hover:text-black active:scale-95 lg:mx-0"
+												>
+													Validate
+												</button>
+											</form>
+										) : (
+											<>
+												<p className="py-4 text-center text-sm font-bold leading-5 text-green-400">
+													Validated
+												</p>
+												{!processingPayment && (
+													<button
+														onClick={() => {
+															setIsValidated(
+																false
+															);
+														}}
+														type="button"
+														className="gradient focus:shadow-outline mx-auto w-full transform rounded-md py-2 px-4 font-bold text-white shadow transition duration-75 ease-in-out hover:bg-white hover:text-black active:scale-95 lg:mx-0"
+													>
+														Change Tweet
+													</button>
+												)}
+											</>
 										)}
 									</>
 								)}
