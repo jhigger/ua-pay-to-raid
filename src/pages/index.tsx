@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
+import HistoryPanel from "../components/HistoryPanel";
 import MainPanel from "../components/MainPanel";
 
 const Home: NextPage = () => {
@@ -14,17 +14,11 @@ const Home: NextPage = () => {
 				/>
 				<link rel="icon" href="/images/utilityape.png" />
 			</Head>
-			<div className="relative h-screen w-screen">
-				<Image
-					src="/images/bg-1.jpg"
-					alt="background"
-					fill
-					priority
-					className="object-cover"
-				/>
-				<main className="absolute w-full leading-normal tracking-normal text-white">
-					<div className="container mx-auto flex h-screen flex-col flex-wrap items-center justify-center py-8 px-4">
+			<div className="relative min-h-screen w-screen overflow-hidden bg-black bg-[url('/images/bg-1.jpg')] bg-cover bg-center bg-no-repeat">
+				<main className="w-full leading-normal tracking-normal text-white">
+					<div className="container mx-auto flex min-h-screen flex-col flex-wrap items-center justify-center gap-8 py-8 px-4">
 						<MainPanel />
+						<HistoryPanel />
 					</div>
 				</main>
 			</div>
