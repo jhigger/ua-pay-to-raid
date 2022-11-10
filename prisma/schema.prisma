@@ -46,6 +46,7 @@ model Raid {
   tweetUrl  String   @map("tweet_url")
   tweetId   String   @map("tweet_id")
   payment   Decimal
+  raided    Boolean  @default(false)
 
   @@index([reference])
 }
