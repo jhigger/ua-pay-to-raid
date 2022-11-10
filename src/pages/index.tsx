@@ -18,6 +18,7 @@ const Home: NextPage = () => {
 	const [tweetId, setTweetId] = useState("");
 	const [confirmed, setConfirmed] = useState(false);
 	const [processingPayment, setProcessingPayment] = useState(false);
+	const [isValidated, setIsValidated] = useState(false);
 	const [transaction, setTransaction] = useState<Transaction | null>(null);
 
 	const { connection } = useConnection();
@@ -29,11 +30,12 @@ const Home: NextPage = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, isSubmitSuccessful },
+		formState: { errors },
 		reset,
 	} = useForm<TwitterPost>();
 
 	const onSubmit = ({ url }: TwitterPost) => {
+		setIsValidated(true);
 		setTransaction(null);
 		const arr = url.split("/");
 		setTweetUrl(url);
@@ -175,7 +177,9 @@ const Home: NextPage = () => {
 												<div className="mt-4">
 													<WalletMultiButton />
 												</div>
-												{wallet && connected ? (
+												{wallet &&
+												connected &&
+												!isValidated ? (
 													<form
 														className="flex w-full flex-col gap-4"
 														onSubmit={handleSubmit(
@@ -226,34 +230,52 @@ const Home: NextPage = () => {
 														>
 															Validate
 														</button>
-														{isSubmitSuccessful && (
-															<>
-																{processingPayment ? (
-																	<div className="flex h-full w-full flex-col items-center justify-center">
-																		<p className="flex items-center text-center text-sm leading-5 text-gray-300">
-																			Processing
-																			payment...
-																		</p>
-																	</div>
-																) : (
-																	<button
-																		onClick={
-																			handlePay
-																		}
-																		type="button"
-																		className="gradient focus:shadow-outline mx-auto w-full transform rounded-md py-2 px-4 font-bold text-white shadow transition duration-75 ease-in-out hover:bg-white hover:text-black active:scale-95 lg:mx-0"
-																	>
-																		Pay
-																	</button>
-																)}
-															</>
-														)}
 													</form>
-												) : null}
+												) : (
+													<>
+														<p className="py-4 text-center text-sm font-bold leading-5 text-green-400">
+															Validated
+														</p>
+														{!processingPayment && <button
+															onClick={() => {
+																setIsValidated(
+																	false
+																);
+															}}
+															type="button"
+															className="gradient focus:shadow-outline mx-auto w-full transform rounded-md py-2 px-4 font-bold text-white shadow transition duration-75 ease-in-out hover:bg-white hover:text-black active:scale-95 lg:mx-0"
+														>
+															Change Tweet
+														</button>}
+													</>
+												)}
+
+												{isValidated && (
+													<div className="mt-4 w-full">
+														{processingPayment ? (
+															<div className="flex h-full w-full flex-col items-center justify-center">
+																<p className="flex items-center text-center text-sm leading-5 text-gray-300">
+																	Processing
+																	payment...
+																</p>
+															</div>
+														) : (
+															<button
+																onClick={
+																	handlePay
+																}
+																type="button"
+																className="gradient focus:shadow-outline mx-auto w-full transform rounded-md py-2 px-4 font-bold text-white shadow transition duration-75 ease-in-out hover:bg-white hover:text-black active:scale-95 lg:mx-0"
+															>
+																Pay
+															</button>
+														)}
+													</div>
+												)}
 											</div>
 										</div>
 										<div className="m-4 flex max-h-[50vh] flex-1 justify-center overflow-auto border-t-2 border-gray-500 py-4 text-center md:mx-0 md:max-h-[80vh] md:border-t-0 md:border-l-2 md:px-4">
-											{isSubmitSuccessful ? (
+											{isValidated ? (
 												<TwitterTweetEmbed
 													key={tweetId}
 													placeholder="Loading..."
