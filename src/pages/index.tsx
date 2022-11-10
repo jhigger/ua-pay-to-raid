@@ -33,6 +33,7 @@ const Home: NextPage = () => {
 	} = useForm<TwitterPost>();
 
 	const onSubmit = ({ url }: TwitterPost) => {
+		setTransaction(null);
 		const arr = url.split("/");
 		setTweetUrl(url);
 		setTweetId(arr[arr.length - 1] || "");
@@ -88,10 +89,11 @@ const Home: NextPage = () => {
 			try {
 				await sendTransaction(transaction, connection);
 				handleSaveToDb();
-				setTransaction(null);
 				reset();
 			} catch (e) {
 				console.error(e);
+			} finally {
+				setTransaction(null);
 			}
 		};
 		trySendTransaction();
@@ -222,15 +224,26 @@ const Home: NextPage = () => {
 															Validate
 														</button>
 														{isSubmitSuccessful && (
-															<button
-																onClick={
-																	handlePay
-																}
-																type="button"
-																className="gradient focus:shadow-outline mx-auto w-full transform rounded-md py-2 px-4 font-bold text-white shadow transition duration-75 ease-in-out hover:bg-white hover:text-black active:scale-95 lg:mx-0"
-															>
-																Pay
-															</button>
+															<>
+																{transaction ? (
+																	<div className="flex h-full w-full flex-col items-center justify-center">
+																		<p className="flex items-center text-center text-sm leading-5 text-gray-300">
+																			Processing
+																			payment...
+																		</p>
+																	</div>
+																) : (
+																	<button
+																		onClick={
+																			handlePay
+																		}
+																		type="button"
+																		className="gradient focus:shadow-outline mx-auto w-full transform rounded-md py-2 px-4 font-bold text-white shadow transition duration-75 ease-in-out hover:bg-white hover:text-black active:scale-95 lg:mx-0"
+																	>
+																		Pay
+																	</button>
+																)}
+															</>
 														)}
 													</form>
 												) : null}
