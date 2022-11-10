@@ -17,6 +17,7 @@ const Home: NextPage = () => {
 	const [tweetUrl, setTweetUrl] = useState("");
 	const [tweetId, setTweetId] = useState("");
 	const [confirmed, setConfirmed] = useState(false);
+	const [processingPayment, setProcessingPayment] = useState(false);
 	const [transaction, setTransaction] = useState<Transaction | null>(null);
 
 	const { connection } = useConnection();
@@ -40,6 +41,7 @@ const Home: NextPage = () => {
 	};
 
 	const handlePay = async () => {
+		setProcessingPayment(true);
 		setConfirmed(false);
 		const address = publicKey?.toBase58();
 
@@ -93,6 +95,7 @@ const Home: NextPage = () => {
 			} catch (e) {
 				console.error(e);
 			} finally {
+				setProcessingPayment(false);
 				setTransaction(null);
 			}
 		};
@@ -225,7 +228,7 @@ const Home: NextPage = () => {
 														</button>
 														{isSubmitSuccessful && (
 															<>
-																{transaction ? (
+																{processingPayment ? (
 																	<div className="flex h-full w-full flex-col items-center justify-center">
 																		<p className="flex items-center text-center text-sm leading-5 text-gray-300">
 																			Processing
