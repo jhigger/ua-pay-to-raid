@@ -20,7 +20,7 @@ const HistoryPanel = () => {
 	}, []);
 
 	return (
-		<div className="w-full max-w-3xl rounded-xl bg-gray-900 bg-opacity-50 bg-clip-padding ring-1 ring-gray-500 backdrop-blur-md backdrop-filter">
+		<div className="max-h-96 w-full max-w-3xl overflow-auto rounded-xl bg-gray-900 bg-opacity-50 bg-clip-padding ring-1 ring-gray-500 backdrop-blur-md backdrop-filter">
 			<div className="flex h-full flex-col items-center justify-center p-4">
 				<h2 className="py-4 text-center text-2xl font-bold leading-5 text-gray-50">
 					Recently Raided
@@ -63,7 +63,7 @@ const Row = ({
 	tweetUrl: string;
 }) => {
 	return (
-		<li className="flex flex-row rounded bg-gray-900 bg-opacity-0 hover:bg-opacity-50">
+		<li className="flex flex-row bg-gray-900 bg-opacity-0 hover:bg-opacity-50">
 			<div className="flex w-full flex-1 select-none items-center p-4">
 				<div className="mr-4 flex h-10 w-10 flex-col items-center justify-center">
 					<img

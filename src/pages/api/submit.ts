@@ -37,9 +37,10 @@ const submit = async (req: NextApiRequest, res: NextApiResponse) => {
 			const payment = isHolder ? 3 : 4;
 
 			if (saveToDb) {
+				const { signature } = req.body;
 				await prisma.raid.create({
 					data: {
-						reference,
+						signature,
 						address,
 						tweetUrl,
 						tweetId,

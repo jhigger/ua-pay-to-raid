@@ -68,11 +68,30 @@ const MainPanel = () => {
 
 	// Send the transaction once it's fetched
 	useEffect(() => {
-		const handleSaveToDb = () => {
+		const trySendTransaction = async () => {
+			if (!transaction) {
+				return;
+			}
+			try {
+				await sendTransaction(transaction, connection);
+				reset();
+			} catch (e) {
+				console.error(e);
+			} finally {
+				setProcessingPayment(false);
+				setTransaction(null);
+			}
+		};
+		trySendTransaction();
+	}, [transaction, connection, sendTransaction, reset]);
+
+	// Check every 0.5s if the transaction is completed
+	useEffect(() => {
+		const handleSaveToDb = (signature: string) => {
 			if (!publicKey) return;
 
 			const payload = {
-				reference,
+				signature,
 				address: publicKey.toBase58(),
 				tweetUrl,
 				tweetId,
@@ -83,41 +102,17 @@ const MainPanel = () => {
 				console.log(err.message);
 			});
 		};
-		const trySendTransaction = async () => {
-			if (!transaction) {
-				return;
-			}
-			try {
-				await sendTransaction(transaction, connection);
-				handleSaveToDb();
-				reset();
-			} catch (e) {
-				console.error(e);
-			} finally {
-				setProcessingPayment(false);
-				setTransaction(null);
-			}
-		};
-		trySendTransaction();
-	}, [
-		transaction,
-		connection,
-		sendTransaction,
-		reset,
-		publicKey,
-		reference,
-		tweetUrl,
-		tweetId,
-	]);
-
-	// Check every 0.5s if the transaction is completed
-	useEffect(() => {
 		const interval = setInterval(async () => {
 			if (!reference) return;
 			try {
 				// Check if there is any transaction for the reference
-				await findReference(connection, reference);
+				const signatureInfo = await findReference(
+					connection,
+					reference
+				);
+				handleSaveToDb(signatureInfo.signature);
 				setConfirmed(true);
+				clearInterval(interval);
 			} catch (e) {
 				if (e instanceof FindReferenceError) {
 					// No transaction found yet, ignore this error
@@ -129,11 +124,11 @@ const MainPanel = () => {
 		return () => {
 			clearInterval(interval);
 		};
-	}, [connection, reference, reset]);
+	}, [connection, reference, publicKey, tweetUrl, tweetId]);
 
 	return (
 		<div className="w-full max-w-3xl rounded-xl bg-gray-900 bg-opacity-50 bg-clip-padding ring-1 ring-gray-500 backdrop-blur-md backdrop-filter">
-			<div className="flex min-h-[50vh] flex-col md:flex-row">
+			<div className="flex min-h-[20vw] flex-col items-center justify-center md:flex-row">
 				{confirmed ? (
 					<div className="flex h-full w-full flex-col items-center justify-center">
 						<p className="my-6 flex items-center text-center text-sm leading-5 text-gray-300">
@@ -246,7 +241,7 @@ const MainPanel = () => {
 								)}
 							</div>
 						</div>
-						<div className="m-4 flex max-h-[50vh] flex-1 justify-center overflow-auto border-t-2 border-gray-500 py-4 text-center md:mx-0 md:max-h-[80vh] md:border-t-0 md:border-l-2 md:px-4">
+						<div className="m-4 flex min-h-[20vw] flex-1 justify-center overflow-auto border-t-2 border-gray-500 py-4 text-center md:mx-0 md:max-h-[80vh] md:border-t-0 md:border-l-2 md:px-4">
 							{isValidated ? (
 								<TwitterTweetEmbed
 									key={tweetId}
