@@ -32,8 +32,10 @@ const HistoryPanel = () => {
 							(
 								{
 									tweetUrl,
+									createdAt,
 								}: {
 									tweetUrl: string;
+									createdAt: string;
 								},
 								idx
 							) => {
@@ -44,6 +46,7 @@ const HistoryPanel = () => {
 											tweetUrl.split("/")[3] || ""
 										}
 										tweetUrl={tweetUrl}
+										date={createdAt}
 									/>
 								);
 							}
@@ -58,9 +61,11 @@ const HistoryPanel = () => {
 const Row = ({
 	twitterHandle,
 	tweetUrl,
+	date,
 }: {
 	twitterHandle: string;
 	tweetUrl: string;
+	date: string;
 }) => {
 	return (
 		<li className="flex flex-row bg-gray-900 bg-opacity-0 hover:bg-opacity-50">
@@ -87,7 +92,7 @@ const Row = ({
 					</a>
 				</div>
 				<div className="text-xs text-gray-600 dark:text-gray-200">
-					{new Date().toLocaleDateString()}
+					{new Date(date).toLocaleDateString()}
 				</div>
 			</div>
 		</li>
