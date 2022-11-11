@@ -133,7 +133,7 @@ const MainPanel = () => {
 
 	return (
 		<div className="w-full max-w-3xl rounded-xl bg-gray-900 bg-opacity-50 bg-clip-padding ring-1 ring-gray-500 backdrop-blur-md backdrop-filter">
-			<div className="flex flex-col md:flex-row">
+			<div className="flex min-h-[50vh] flex-col md:flex-row">
 				{confirmed ? (
 					<div className="flex h-full w-full flex-col items-center justify-center">
 						<p className="my-6 flex items-center text-center text-sm leading-5 text-gray-300">
