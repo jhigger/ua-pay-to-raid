@@ -1,6 +1,5 @@
 import { type AppType } from "next/dist/shared/lib/utils";
 import dynamic from "next/dynamic";
-import Navbar from "../components/Navbar";
 
 import "../styles/globals.css";
 
@@ -15,12 +14,9 @@ const WalletConnectionProvider = dynamic(
 
 const MyApp: AppType = ({ Component, pageProps }) => {
 	return (
-		<>
-			<Navbar />
-			<WalletConnectionProvider>
-				<Component {...pageProps} />
-			</WalletConnectionProvider>
-		</>
+		<WalletConnectionProvider>
+			<Component {...pageProps} />
+		</WalletConnectionProvider>
 	);
 };
 

@@ -74,7 +74,7 @@ const Navbar = () => {
 	return (
 		<nav
 			id="header"
-			className="font-inter sticky top-0 z-50 w-full bg-gray-900 text-white transition duration-300 ease-in-out"
+			className="bg-opacity-50 bg-clip-padding ring-1 ring-gray-500 backdrop-blur-md backdrop-filter font-inter sticky top-0 z-50 w-full bg-gray-900 text-white transition duration-300 ease-in-out"
 		>
 			<div className="container mx-auto mt-0 flex w-full flex-wrap items-center justify-between p-4">
 				<a href="https://utilityape.com/">
