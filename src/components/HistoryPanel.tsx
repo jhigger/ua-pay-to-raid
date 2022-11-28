@@ -27,31 +27,35 @@ const HistoryPanel = () => {
 				</h2>
 
 				<div className="container mx-auto mt-4 flex w-full flex-col items-center justify-center rounded-lg">
-					<ul className="flex flex-col divide-y">
-						{raids.map(
-							(
-								{
-									tweetUrl,
-									createdAt,
-								}: {
-									tweetUrl: string;
-									createdAt: string;
-								},
-								idx
-							) => {
-								return (
-									<Row
-										key={idx}
-										twitterHandle={
-											tweetUrl.split("/")[3] || ""
-										}
-										tweetUrl={tweetUrl}
-										date={createdAt}
-									/>
-								);
-							}
-						)}
-					</ul>
+					{raids.length === 0 ? (
+						"Empty"
+					) : (
+						<ul className="flex flex-col divide-y">
+							{raids.map(
+								(
+									{
+										tweetUrl,
+										createdAt,
+									}: {
+										tweetUrl: string;
+										createdAt: string;
+									},
+									idx
+								) => {
+									return (
+										<Row
+											key={idx}
+											twitterHandle={
+												tweetUrl.split("/")[3] || ""
+											}
+											tweetUrl={tweetUrl}
+											date={createdAt}
+										/>
+									);
+								}
+							)}
+						</ul>
+					)}
 				</div>
 			</div>
 		</div>
