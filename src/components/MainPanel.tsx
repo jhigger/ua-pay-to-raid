@@ -246,7 +246,7 @@ const MainPanel = () => {
 								<TwitterTweetEmbed
 									key={tweetId}
 									placeholder="Loading..."
-									tweetId={tweetId}
+									tweetId={tweetId.split("?")[0]}
 								/>
 							) : (
 								<p className="mt-6 flex items-center text-justify text-sm leading-5 text-gray-300">
