@@ -13,6 +13,16 @@ const Navbar = () => {
 		{ text: "Client Dashboard", href: "http://dashboard.utilityape.com/" },
 	];
 
+	const dropDownItems = [
+		{
+			label: "Sniper Tools",
+			link: "https://utilityape.soltools.xyz/",
+		},
+		{
+			label: "Coming soon!",
+		},
+	];
+
 	useEffect(() => {
 		let scrollpos = window.scrollY;
 		const header = document.getElementById("header");
@@ -119,7 +129,7 @@ const Navbar = () => {
 							);
 						})}
 						<li className="mr-2">
-							<DropDownMenu items={[{ label: "Coming Soon" }]} />
+							<DropDownMenu items={dropDownItems} />
 						</li>
 					</ul>
 				</div>
