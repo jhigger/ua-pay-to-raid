@@ -34,7 +34,7 @@ const submit = async (req: NextApiRequest, res: NextApiResponse) => {
 					);
 				});
 
-			const payment = isHolder ? 3 : 4;
+			const payment = isHolder ? 1 : 2;
 
 			if (saveToDb) {
 				const { signature } = req.body;
