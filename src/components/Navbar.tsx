@@ -10,7 +10,7 @@ const Navbar = () => {
 		{ text: "Holders", href: "https://holders.utilityape.com/" },
 		{ text: "Mutate", href: "https://mutate.utilityape.com/" },
 		{ text: "Raid", href: "https://pay-to-raid.utilityape.com/" },
-		{ text: "Dashboard", href: "http://dashboard.utilityape.com/" },
+		{ text: "Client Dashboard", href: "http://dashboard.utilityape.com/" },
 	];
 
 	useEffect(() => {
