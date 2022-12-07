@@ -146,7 +146,7 @@ const MainPanel = () => {
 								<h1 className="py-4 text-center text-3xl font-bold leading-5 text-gray-50">
 									Pay To Raid
 								</h1>
-								<div className="mt-4">
+								<div className="mt-4 backdrop-blur-none backdrop-filter-none">
 									<WalletMultiButton />
 								</div>
 								{wallet && connected && (
@@ -246,7 +246,7 @@ const MainPanel = () => {
 								<TwitterTweetEmbed
 									key={tweetId}
 									placeholder="Loading..."
-									tweetId={(tweetId.split("?")[0]) as string}
+									tweetId={tweetId.split("?")[0] as string}
 								/>
 							) : (
 								<p className="mt-6 flex items-center text-justify text-sm leading-5 text-gray-300">
