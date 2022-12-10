@@ -19,7 +19,8 @@ const Navbar = () => {
 			link: "https://utilityape.soltools.xyz/",
 		},
 		{
-			label: "Coming soon!",
+			label: "Staking",
+			link: "https://stake.utilityape.com/",
 		},
 	];
 
