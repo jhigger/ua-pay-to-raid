@@ -98,9 +98,34 @@ const MainPanel = () => {
 				saveToDb: true,
 			};
 
-			axios.post(`/api/submit`, { ...payload }).catch((err) => {
-				console.log(err.message);
-			});
+			axios
+				.post(`/api/submit`, { ...payload })
+				.then(() => {
+					const webhookUrl = process.env.WEBHOOK_URL ?? "";
+					const body = {
+						content: null,
+						embeds: [
+							{
+								title: "UA Notification",
+								description:
+									"Someone just paid for a **RAID**. Please check the admin portal.",
+								color: 5814783,
+								footer: {
+									text: "Powered by Utility APE",
+									icon_url:
+										"https://github.com/vmpyre/BotsOnDisplay/blob/main/logos/utilityape-logo.png?raw=true",
+								},
+							},
+						],
+						attachments: [],
+					};
+					axios.post(webhookUrl, body).catch((err) => {
+						console.log(err.message);
+					});
+				})
+				.catch((err) => {
+					console.log(err.message);
+				});
 		};
 		const interval = setInterval(async () => {
 			if (!reference) return;
