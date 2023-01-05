@@ -18,7 +18,7 @@ const Home: NextPage = () => {
 			<div className="min-h-screen bg-[url('/images/bg-1.jpg')] bg-cover bg-center bg-no-repeat">
 				<main className="w-full leading-normal tracking-normal text-white">
 					<Navbar />
-					<div className="container mx-auto flex min-h-screen flex-col flex-wrap items-center justify-center gap-8 py-8 px-4">
+					<div className="container mx-auto flex min-h-screen flex-col flex-wrap items-center justify-start gap-8 py-8 px-4">
 						<MainPanel />
 						<HistoryPanel />
 					</div>

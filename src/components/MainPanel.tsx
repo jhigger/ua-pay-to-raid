@@ -277,7 +277,7 @@ const MainPanel = () => {
 								<p className="mt-6 flex items-center text-justify text-sm leading-5 text-gray-300">
 									Please connect your wallet and then enter
 									the URL of the tweet you want to be raided.
-									<br />4 SOL is needed for payment (discounts
+									<br />2 SOL is needed for payment (discounts
 									apply automatically if your wallet has UA
 									Gen1/Gen2).
 								</p>
