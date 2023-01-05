@@ -92,7 +92,7 @@ const Navbar = () => {
 			id="header"
 			className="font-inter sticky top-0 z-50 w-full bg-gray-900 bg-opacity-50 bg-clip-padding text-white ring-1 ring-gray-500 backdrop-blur-md backdrop-filter transition duration-300 ease-in-out"
 		>
-			<div className="container mx-auto mt-0 flex w-full flex-wrap items-center justify-between p-4">
+			<div className="container mx-auto mt-0 flex w-full flex-wrap items-center justify-between p-2">
 				<a href="https://utilityape.com/">
 					<div className="toggleColour flex items-center gap-4 text-2xl font-bold text-white no-underline hover:no-underline lg:text-4xl">
 						<Image
