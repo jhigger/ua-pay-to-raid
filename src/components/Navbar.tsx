@@ -26,6 +26,14 @@ const Navbar = () => {
 			label: "Pixel Claim",
 			link: "https://pixel.utilityape.com/",
 		},
+		{
+			label: "Missions",
+			link: "https://missions.utilityape.com/",
+		},
+		{
+			label: "Stats",
+			link: "https://stats.utilityape.com/",
+		},
 	];
 
 	useEffect(() => {
